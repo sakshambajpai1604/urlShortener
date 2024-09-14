@@ -42,7 +42,9 @@
                 <p>Shortened URL: <a href="{{ short_url }}"target="_blank">{{ short_url }}</a></p>
             </div>
         {% endif %}
-        <a href="{% url 'logout' %}" class="home-links">Logout</a>
+        <button>
+            <a href="{% url 'logout' %}" >Logout</a>
+        </button>
     </div>
 {% else %}
 <div id="home-container">
