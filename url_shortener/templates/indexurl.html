@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shortener</title>
+    <link rel="stylesheet" href="{% static 'stylesurl.css' %}">
+    <style>
+        #home-container{
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        a.home-links{
+            color: white;
+            padding: 20px 30px;
+            background-color: #060634a8;
+            border: 2px solid white;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+{% if user.is_authenticated %}
+<div class ="heading" style="margin-top: 50px;">
+    <h1>   Welcome to URL Shortener </h1>
+        </div> 
+    <div class="container">
+        <h1>URL Shortener</h1>
+        <form action="{% url 'shorten_url' %}" method="POST">
+            {% csrf_token %}
+            <input type="url" name="orignal_url" placeholder="Enter URL to shorten" required>
+            <button type="submit">Shorten</button>
+        </form>
+        {% if short_url %}
+            <div class="shortened-url">
+                <p>Shortened URL: <a href="{{ short_url }}"target="_blank">{{ short_url }}</a></p>
+            </div>
+        {% endif %}
+        <a href="{% url 'logout' %}" class="home-links">Logout</a>
+    </div>
+{% else %}
+<div id="home-container">
+    <a href="{% url 'login' %}" class="home-links">Login</a>
+    <a href="{% url 'register' %}" class="home-links">Register</a>
+
+</div>
+{% endif %}
+</body>
+</html>
